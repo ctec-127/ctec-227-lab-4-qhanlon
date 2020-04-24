@@ -8,7 +8,7 @@ Using the PHP code examples provided in this module, **build a single page PHP a
 - Displays the images on the page as a gallery
 - Provides a link below each picture that allows you to delete the image from the gallery
 - Style your page in a professional way. You should develop this lab to include in your portfolio of work.
-- The use of Boostrap is optional.
+- The use of Bootstrap is optional.
 - You can use CSS grid and flexbox
 - Push your code to GitHub
 - Students will be demoing their code to the class the day after the lab is due
