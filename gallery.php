@@ -17,6 +17,9 @@
 		</form>
 		
 	<?php 
+	// 
+
+
 	// echo "<button class=\"btn btn-danger m-2 p-2\" onclick=\"del()\">Delete this image</button>";
 	// Error Codes
 	// See http://www.php.net/manual/en/features.file-upload.errors.php
@@ -57,17 +60,19 @@
 	// set upload folder name
 	$upload_dir = 'uploads';
 
-	// Now lets move the file
-	// move_uploaded_file returns false if something went wrong
+
 	// $duplicate = 0;
 	// $segmented = pathinfo("$target_file");
-	// // if ($message != $upload_errors[$error]){
+	// if ($message != $upload_errors[$error]){
 	// 	while (file_exists("uploads/$target_file")) {
 	// 		$duplicate++;
 	// 		$target_file = $segmented['filename'] . "-" . $duplicate . '.' . $segmented['extension'];
 	// 		// $target_file = $target_file . $duplicate;
 	// 	}
-	// // }
+	// }
+
+	// Now lets move the file
+	// move_uploaded_file returns false if something went wrong
 	if(move_uploaded_file($tmp_file, $upload_dir . "/" . $target_file)){
 		$message = "File uploaded successfully";
 	} else {
