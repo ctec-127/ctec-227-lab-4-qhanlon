@@ -5,15 +5,18 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<title>Files and Directories</title>
 </head>
 <body>
 	<header class="p-2 mb-2">
 		<h1>Welcome to an Image Uploader!</h1>
-		<form action="" method="post" enctype="multipart/form-data" class="mb-4">
+		<form action="" method="post" enctype="multipart/form-data" class="mb-2">
 			<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
-			<input type="file" name="file_upload">
-			<input type="submit" name="submit" value="Upload">
+			<label for="file_upload" id="labelle"><strong>Please choose a file to upload</strong></label>
+			<input type="file" name="file_upload" class="file" id="file_upload">
+			<br>
+			<input type="submit" name="submit" value="Upload" class="upload">
 		</form>
 		
 	<?php 
@@ -74,7 +77,7 @@
 	// Now lets move the file
 	// move_uploaded_file returns false if something went wrong
 	if(move_uploaded_file($tmp_file, $upload_dir . "/" . $target_file)){
-		$message = "File uploaded successfully";
+		$message = "File uploaded successfully!";
 	} else {
 		$error = $_FILES['file_upload']['error'];
 		$message = $upload_errors[$error];
@@ -84,7 +87,12 @@
 	// echo "<pre>";
 	// print_r($_FILES['file_upload']);
 	// echo "</pre>";
-	}
+	} /*else if ($_SERVER['REQUEST_METHOD'] == "GET"){
+		if (isset($_GET['d']) && $_GET['d'] === "s") {
+			$message = "File successfully deleted.";
+		}
+
+	}*/
 
 
 
@@ -96,10 +104,10 @@
 				$message = "File deleted.";
 				header('Location: gallery.php');
 			} else {
-				echo "<p class=\"notification experimental\">Sorry, I wasn't able to delete that file.</p>";
+				echo "<p class=\"notification experimental\"><strong>Sorry, I wasn't able to delete that file.</strong></p>";
 			}
 		} else {
-			echo "<p class=\"notification experimental\">Sorry, I wasn't able to back up that file.</p>";
+			echo "<p class=\"notification experimental\"><strong>Sorry, I wasn't able to back up that file.</strong></p>";
 		}
 		
 	}
@@ -113,7 +121,7 @@
 	?>
 	</header>
 	<div id="unit">
-	<aside class="left"></aside>
+	<!-- <aside class="left"></aside> -->
 	<main class="pb-4">
 	<?php
 		// get current working directory
@@ -172,7 +180,7 @@
 		} // end of if*/
 	?>
 	</main>
-	<aside class="right"></aside>
+	<!-- <aside class="right"></aside> -->
 </div>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
