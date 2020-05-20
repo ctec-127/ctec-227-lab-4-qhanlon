@@ -37,6 +37,19 @@ main {
     text-align: center;
 }
 
+#login, #logout {
+    /* set initial display to none */
+    display: none;
+}
+
+#showPassword {
+    text-decoration: underline;
+}
+
+#showPassword:hover {
+    cursor: pointer;
+}
+
 #unit {
     position: relative;
 }

@@ -14,7 +14,7 @@
 		<form action="" method="post" enctype="multipart/form-data" class="mb-2">
 			<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
 			<label for="file_upload" id="labelle"><strong>Please choose a file to upload</strong></label>
-			<input type="file" name="file_upload" class="file" id="file_upload">
+			<input type="file" name="file_upload" class="file" id="file_upload" accept=".png, .jpeg, .jpg, .gif, .apng, .svg, .bmp">
 			<br>
 			<input type="submit" name="submit" value="Upload" class="upload">
 		</form>
@@ -149,7 +149,8 @@
 						// echo "<p>$filename</p>";
 						// Make the filename readable by the browser even if it has special characters or spaces
 						$image_file = $filename;
-						$filename = urlencode($filename);
+						// rawurlencode makes it work better, tho I haven't seen any errors yet without it.
+						$filename = rawurlencode($filename);
 						echo "<div class=\"gallery\"><img src=\"uploads/$image_file\" alt=\"$image_file\" title=\"$image_file\"> <br>";
 						echo "<a href=\"gallery.php?file=$filename\" ><button class=\"btn btn-danger m-2 p-2\">Delete this image</button></a></div>";
 					}

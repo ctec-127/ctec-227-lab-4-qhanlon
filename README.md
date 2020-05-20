@@ -1,3 +1,22 @@
+Check out the db_connection stuff to see if you have any idea what you're doing.
+Maybe try to learn the <?= $pageTitle ?>
+
+
+
+Lab 5 Specs
+
+# Here are the things that you will be developing for this lab:
+
+- Adding a registration and login system to the image library.
+- Add a username field to the registration form provided by the instructor.
+- Ensure that both the email address and the username are not already in use within the database.
+- Uploaded images will be stored for the logged-in user in a folder that your code creates using their username.
+- Provide a way to prohibit anonymous viewing of other folders of images.
+- When the user is logged in they will see their images and only their images.
+- When the user is not logged in they will see a message letting them know how to register and sign up.
+- The entire site must be styled and look professional.
+
+
 # Spring 2020: CTEC 227 - Lab 4: Build a Simple Image Gallery
 
 ## Details
