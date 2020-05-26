@@ -4,7 +4,7 @@ function showPassword() {
     const showPassword = document.querySelector('#showPassword');
 
     if (showPassword.innerText === 'Show Password') {
-        showPassword.innerText = 'Hide Pasword';
+        showPassword.innerText = 'Hide Password';
         passwordField.type = 'text';
     } else if (showPassword.innerText === 'Hide Password') {
         passwordField.type = 'password';

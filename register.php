@@ -4,10 +4,10 @@ require 'inc/header.inc.php';
 require_once 'inc/db_connect.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $db->real_escape_strong($_POST['email']);
-    $first_name = $db->real_escape_strong($_POST['first_name']);
-    $last_name = $db->real_escape_strong($_POST['last_name']);
-    $password = hash('sha512', $db->real_escape_strong($_POST['password']));
+    $email = $db->real_escape_string($_POST['email']);
+    $first_name = $db->real_escape_string($_POST['first_name']);
+    $last_name = $db->real_escape_string($_POST['last_name']);
+    $password = hash('sha512', $db->real_escape_string($_POST['password']));
 
     $sql = "INSERT INTO user (email,first_name,last_name,password) VALUES ('$email','$first_name','$last_name','$password')";
 
@@ -42,4 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <br><br>
     <input type="submit" value="Register">
 </form>
+
+<script src="js/script.js"></script>
+
 <?php require 'inc/footer.inc.php'; ?>

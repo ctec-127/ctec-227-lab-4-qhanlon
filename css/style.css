@@ -21,7 +21,16 @@ header {
     /* background-image: url("../img/bg-test.png"); */
 }
 
-form {
+ul>li {
+    list-style-type: none;
+    display: inline-block;
+    background: #adadad;
+    padding: 3px 0;
+    width: 75px;
+    height: 30px;
+}
+
+#upload {
     width: 500px;
     height: 170px;
     background: #ffffff;
@@ -37,10 +46,12 @@ main {
     text-align: center;
 }
 
-#login, #logout {
+/* #login, #logout {
     /* set initial display to none */
+
+/*
     display: none;
-}
+} */
 
 #showPassword {
     text-decoration: underline;

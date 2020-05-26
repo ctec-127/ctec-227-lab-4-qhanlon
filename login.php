@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $result->fetch_assoc();
         $_SESSION['first_name'] = $row['first_name'];
 
-        header ('location: home.php');
+        header ('location: gallery.php');
     } else {
         echo '<p>Please try again.</p>';
     }

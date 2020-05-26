@@ -1,23 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<title>Files and Directories</title>
-</head>
-<body>
+<?php 
+session_start();
+
+$page_title = 'Gallery';
+
+if (isset($_SESSION['first_name'])) {
+	// set upload folder name
+	$foldername = $_SESSION['first_name'];
+	$gallery_head = 'Welcome to your gallery, ' . $_SESSION['first_name'] . '!';
+	$upload_dir = "uploads/$foldername";
+	$dir = "uploads/$foldername";
+	$backup = "backup/$foldername";
+	$extrapad = '';
+	!is_dir($upload_dir) ? mkdir($upload_dir) : '';
+	!is_dir($backup) ? mkdir($backup) : '';
+} else {
+	$gallery_head = 'Since you\'re not logged in, check out this example gallery!';
+	$upload_dir = 'uploads/8edfgh578ssdgf';
+	$dir = 'uploads/8edfgh578ssdgf';
+	$backup = 'backup/8edfgh578ssdgf';
+	$extrapad = 'pb-2';
+	!is_dir($upload_dir) ? mkdir($upload_dir) : '';
+	!is_dir($backup) ? mkdir($backup) : '';
+}
+ ?>
+
+<?php
+include 'inc/header.inc.php';
+?>
+
 	<header class="p-2 mb-2">
-		<h1>Welcome to an Image Uploader!</h1>
-		<form action="" method="post" enctype="multipart/form-data" class="mb-2">
+		<h1><?php echo $gallery_head; ?></h1>
+		<h2><?php echo !isset($_SESSION['first_name']) ? "Please click <a href=\"login.php\">here</a> if you would like to register!": ''; ?></h2>
+		<?php   echo isset($_SESSION['first_name']) ? '<form action="" method="post" enctype="multipart/form-data" class="mb-2" id="upload">
 			<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
 			<label for="file_upload" id="labelle"><strong>Please choose a file to upload</strong></label>
 			<input type="file" name="file_upload" class="file" id="file_upload" accept=".png, .jpeg, .jpg, .gif, .apng, .svg, .bmp">
 			<br>
 			<input type="submit" name="submit" value="Upload" class="upload">
-		</form>
+		</form>' : ''; ?>
 		
 	<?php 
 	// 
@@ -60,10 +80,6 @@
 	// basename gets just the file name
 	$target_file = basename($_FILES['file_upload']['name']);
 
-	// set upload folder name
-	$upload_dir = 'uploads';
-
-
 	// $duplicate = 0;
 	// $segmented = pathinfo("$target_file");
 	// if ($message != $upload_errors[$error]){
@@ -99,8 +115,8 @@
 	if(!empty($message)) {echo "<p class=\"notification\">{$message}</p>";} 
 
 	if (isset($_GET['file'])) {
-		if (copy('uploads/' . $_GET['file'], 'backup/' . $_GET['file'])) {
-			if (unlink('uploads/' . $_GET['file'])) {
+		if (copy($upload_dir . "/". $_GET['file'], $backup . "/" . $_GET['file'])) {
+			if (unlink($upload_dir . "/" . $_GET['file'])) {
 				$message = "File deleted.";
 				header('Location: gallery.php');
 			} else {
@@ -112,11 +128,11 @@
 		
 	}
 	// Recover last file deleted.
-	if (isset($_GET['recover'])) {
-		copy('backup/' . $_GET['recover'], 'uploads/' . $_GET['recover']);
-		unlink('backup/' . $_GET['recover']);
-		header('Location: gallery.php');
-	}
+	// if (isset($_GET['recover'])) {
+	// 	copy('backup/' . $_GET['recover'], 'uploads/' . $_GET['recover']);
+	// 	unlink('backup/' . $_GET['recover']);
+	// 	header('Location: gallery.php');
+	// }
 	// End PHP tag cuz I felt like it I guess? I could just echo the </header> as well.
 	?>
 	</header>
@@ -129,8 +145,8 @@
 
 		// create a directory
 		// try creating a directory a second time. What happens?
-		!is_dir('uploads') ? mkdir('uploads') : '';
-		!is_dir('backup') ? mkdir('backup') : '';
+		// !is_dir('uploads') ? mkdir('uploads') : '';
+		// !is_dir('backup') ? mkdir('backup') : '';
 
 		// view contents of Directories
 		// opendir()
@@ -138,7 +154,8 @@
 		// closedir()
 
 		// start at current directory
-		$dir = "uploads";
+		// $dir = "uploads";
+
 		// Make sure uploads exists and is a folder
 		if(is_dir($dir)){
 			// Create a readable reference to the folder
@@ -151,8 +168,11 @@
 						$image_file = $filename;
 						// rawurlencode makes it work better, tho I haven't seen any errors yet without it.
 						$filename = rawurlencode($filename);
-						echo "<div class=\"gallery\"><img src=\"uploads/$image_file\" alt=\"$image_file\" title=\"$image_file\"> <br>";
-						echo "<a href=\"gallery.php?file=$filename\" ><button class=\"btn btn-danger m-2 p-2\">Delete this image</button></a></div>";
+						echo "<div class=\"gallery $extrapad\"><img src=\"" . $upload_dir . "/$image_file\" alt=\"$image_file\" title=\"$image_file\"> <br>";
+						if ($dir != 'uploads/8edfgh578ssdgf') {
+							echo "<a href=\"gallery.php?file=$filename\" ><button class=\"btn btn-danger m-2 p-2\">Delete this image</button></a>";
+						}
+						echo "</div>";
 					}
 				}
 
